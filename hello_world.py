@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, render_template, request, redirect
 import requests
 import threading
 import time
@@ -10,6 +10,7 @@ CLIENT_SECRET = "117367f336141e5908b20ac59cae8172e735af41"
 COMPANY_ID = 323135
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'lsdasaldsadmksaifdfirefbewqu'
 
 def get_token():
     url = f"https://api.moloni.pt/v1/grant/?grant_type=password&client_id={DEV_ID}&client_secret={CLIENT_SECRET}&username={USERNAME}&password={DEV_PASSWORD}"
@@ -85,12 +86,25 @@ def insert_customer(token_dict):
     print(response.text)
 
 
+@app.route('/')
+def home():
+    return render_template('register.html')
+
+@app.route('/register', methods=['POST'])
+def register():
+
+    name = request.form.get('name')
+    email = request.form.get('email')
+    nif = request.form.get('nif')
+
+    print(email, name, nif, sep="\n")
+
 
 # Ligar o servidor
 if __name__ == '__main__':
-
+    # Receber a access token do moloni
     token_dict = get_token()
-
+    # Criar uma thread para ir dando update à acess token antes dela expirar
     thread = threading.Thread(target=get_token, args=(token_dict,))
     insert_customer(token_dict)
 
