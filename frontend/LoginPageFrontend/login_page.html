@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alltech</title>
+    <link rel="stylesheet" href="login_style.css" />
+  </head>
+  <body>
+    <div class="register-container">
+      <form class="register-form">
+        <h1>Welcome</h1>
+        <div class="role-selector">
+          <input type="radio" id="client" name="role" value="client" required />
+          <label for="client">Client</label>
+
+          <input type="radio" id="supplier" name="role" value="supplier" />
+          <label for="supplier">Supplier</label>
+
+          <input type="radio" id="employee" name="role" value="employee" />
+          <label for="employee">Store Employee</label>
+        </div>
+        <div id="common-fields">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a password"
+              required
+            />
+          </div>
+        </div>
+        <div id="role-specific-fields"></div>
+        <button type="submit" class="register-button">Register</button>
+      </form>
+    </div>
+    <script></script>
+  </body>
+</html>
