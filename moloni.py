@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, redirect
 import requests
-import threading
-import time
 
 USERNAME = "a104161@alunos.uminho.pt"
 DEV_ID = "251975622_TESTES_API_UM"
@@ -70,4 +68,3 @@ def get_customer_by_nif(token_dict, nif):
     }
     response = requests.post(url, headers=headers, data=payload)
     return response
-

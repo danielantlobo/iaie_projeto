@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link
+    rel="stylesheet"
+    href="{{url_for('static', filename='customer_menu_style.css')}}"
+    />
+
+<h1 class="customer_title">Welcome back, {{user}}</h1>
+{% endblock %}

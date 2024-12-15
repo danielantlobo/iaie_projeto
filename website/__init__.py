@@ -10,10 +10,12 @@ def create_app():
     from .auth import auth
     from .supplier import supplier
     from .store import store
+    from .customer import customer
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(supplier, url_prefix='/supplier')
     app.register_blueprint(store, url_prefix='/store')
+    app.register_blueprint(customer, url_prefix='/customer')
     
     return app

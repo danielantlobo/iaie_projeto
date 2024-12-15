@@ -1,0 +1,44 @@
+.custom-alert {
+    border-radius: 10px;  /* Rounded corners */
+    padding: 15px;  /* More padding for a better look */
+    font-size: 16px;  /* Slightly larger font */
+    transition: all 0.3s ease-in-out;  /* Smooth transition */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Add a light shadow for depth */
+}
+
+.custom-alert i {
+    margin-right: 10px;  /* Space between icon and text */
+    font-size: 1.2em;  /* Make icon a bit larger */
+}
+
+.alert-dismissible .close {
+    color: rgba(0, 0, 0, 0.5);  /* Lighter color for a transparent effect */
+    opacity: 0.5;  /* Default opacity (semi-transparent) */
+    font-size: 1.5em;  /* Larger font size for close button */
+    border: none;  /* Remove default border */
+    background: none;  /* Remove default background */
+    padding: 0.5em 1em;  /* Adjust padding for better size */
+    transition: opacity 0.2s ease, transform 0.2s ease;  /* Smooth hover effect */
+}
+
+/* Remove the outline and border when clicking */
+.alert-dismissible .close:focus,
+.alert-dismissible .close:active {
+    outline: none;  /* Remove focus outline */
+    border: none;   /* Remove any active border */
+}
+
+.alert-dismissible .close:hover {
+    opacity: 1;  /* Fully opaque on hover */
+    transform: scale(1.1);  /* Slightly enlarge the close button */
+}
+
+.alert-danger {
+    background-color: #f8d7da;  /* Lighter red */
+    border-color: #f5c6cb;  /* Matching border color */
+}
+
+.alert-success {
+    background-color: #d4edda;  /* Lighter green */
+    border-color: #c3e6cb;  /* Matching border color */
+}

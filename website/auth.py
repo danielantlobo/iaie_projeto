@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, flash
+from flask import Blueprint, render_template, redirect, flash, url_for
 import json
 from moloni import *
 
@@ -14,7 +14,7 @@ def login():
         if not customer:
             flash('Email not registered', category="error")
         else:
-            return redirect("/")
+            return redirect(url_for('customer.menu', c=email))
 
     return render_template("login.html")
 
