@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, flash
+from flask import Blueprint, render_template, redirect, flash, session
 import json
 from sap import *
 
@@ -18,6 +18,6 @@ def login():
 
 @supplier.route('/home', methods=['GET','POST'])
 def menu():
-    if request.method == 'POST':
-        pass
+
     return render_template("supplier.html")
+
