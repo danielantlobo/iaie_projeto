@@ -34,12 +34,12 @@ def register():
         address = request.form.get('address')
         zip_code = request.form.get('zip_code')
         city = request.form.get('city')
-        count = get_customer_count(token_dict).json()
+        next_number = get_next_customer(token_dict).get("number")
         customeremail = get_customer_by_email(token_dict, email).json()
         customernif = get_customer_by_nif(token_dict, nif).json()
         if not customeremail:
             if not customernif:
-                insert_customer(token_dict, name, email, nif, address, zip_code, city, count)
+                insert_customer(token_dict, name, email, nif, address, zip_code, city, next_number)
                 flash('Accounted registered successfully', category="success")
             else:
                 flash('NIF already registered', category="error")

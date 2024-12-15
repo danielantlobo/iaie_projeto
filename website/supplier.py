@@ -11,7 +11,13 @@ def login():
     if request.method == 'POST':
         secret_key = request.form.get('secret_key')
         if secret_key == SECRET_KEY:
-            print("hello")
+            return redirect("/supplier/home")
         else:
             flash('Secret key not registered', category="error")
     return render_template("login_supplier.html")
+
+@supplier.route('/home', methods=['GET','POST'])
+def menu():
+    if request.method == 'POST':
+        pass
+    return render_template("supplier.html")
