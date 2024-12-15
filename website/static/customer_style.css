@@ -1,63 +1,80 @@
 .customer_title {
-    padding-top: 40px;
-  }
-  
-  /* Product grid container */
-  .product-grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 50px;
-    padding: 60px;
-    max-width: 3000px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  /* Individual product card */
-  .product {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .product img {
-    max-width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .product h3 {
-    font-size: 18px;
-    margin: 10px 0;
-    color: #333;
-  }
-  
-  .product p {
-    font-size: 16px;
-    color: #007bff;
-    margin: 10px 0;
-  }
-  
-  .product .buy-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .product .buy-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Hover effect */
-  .product:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
+  padding-top: 40px;
+}
+
+/* Product grid container */
+.product-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  padding: 60px;
+  max-width: 3000px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Individual product card */
+.product {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.product h3 {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #333;
+}
+
+.product p {
+  font-size: 16px;
+  color: #007bff;
+  margin: 10px 0;
+}
+
+/* Default Buy Button */
+.product .buy-button {
+  padding: 10px 15px;
+  background-color: #007bff; /* Default blue for "Buy Now" */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Buy Button Hover Effect */
+.product .buy-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Disabled Buy Button (Sold Out) */
+.product .buy-button.sold-out {
+  background-color: #ff4d4d; /* Red for "Sold Out" */
+  color: white;
+  border: none;
+  cursor: not-allowed; /* Disabled cursor */
+  opacity: 0.9; /* Slightly transparent */
+}
+
+/* Prevent hover effects for Sold Out Button */
+.product .buy-button.sold-out:hover {
+  background-color: #ff4d4d; /* Maintain red color on hover */
+  opacity: 0.9; /* Maintain transparency on hover */
+}
+
+/* Hover effect on product card */
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}

@@ -3,65 +3,30 @@
 {% block content %}
 <link
     rel="stylesheet"
-    href="{{url_for('static', filename='customer_style.css')}}"
+    href="{{ url_for('static', filename='customer_style.css') }}"
   />
 
-<h1 class="customer_title">Welcome back, {{user}}</h1>
+<h1 class="customer_title">Welcome back, {{ user }}</h1>
 
+{% if products %}
 <div class="product-grid-container">
-    <div class="product">
-      <img src="{{ url_for('static', filename='macbookair13m2.jpeg') }}" />
-      <h3 id="product_1">Product 1</h3>
-      <p>$10.99</p>
+  {% for product in products %}
+  <div class="product">
+      <!-- Hardcoded image source -->
+      <img src="{{ url_for('static', filename='macbookair13m2.jpeg') }}" alt="{{ product.name }}" />
+      <h3>{{ product.name }}</h3>
+      <p>€{{ product.price }}</p>
+      {% if product.quantity > 0 %}
+      <!-- Blue button for available product -->
       <button class="buy-button">Buy Now</button>
-    </div>
-    <div class="product">
-      <img src="{{ url_for('static', filename='macbookair13m2.jpeg') }}" />
-      <h3 id="product_2">Product 2</h3>
-      <p>$12.99</p>
-      <button class="buy-button">Buy Now</button>
-    </div>
-    <div class="product">
-        <img src="{{ url_for('static', filename='macbookair13m2.jpeg') }}" />
-      <h3 id="product_2">Product 3</h3>
-      <p>$15.99</p>
-      <button class="buy-button">Buy Now</button>
-    </div>
-    <div class="product">
-      <img src="{{ url_for('static', filename='macbookair13m2.jpeg') }}" />
-      <h3 id="product_4">Product 4</h3>
-      <p>$20.99</p>
-      <button class="buy-button">Buy Now</button>
-    </div>
-    <div class="product">
-      <img src="{{ url_for('static', filename='macbookair13m2.jpeg') }}" />
-      <h3 id="product_5">Product 5</h3>
-      <p>$25.99</p>
-      <button class="buy-button">Buy Now</button>
-    </div>
-    <div class="product">
-      <img src="{{ url_for('static', filename='macbookair13m2.jpeg') }}" />
-      <h3 id="product_6">Product 6</h3>
-      <p>$30.99</p>
-      <button class="buy-button">Buy Now</button>
-    </div>
-    <div class="product">
-      <img src="{{ url_for('static', filename='macbookair13m2.jpeg') }}" />
-      <h3 id="product_7">Product 7</h3>
-      <p>$35.99</p>
-      <button class="buy-button">Buy Now</button>
-    </div>
-    <div class="product">
-      <img src="{{ url_for('static', filename='macbookair13m2.jpeg') }}" />
-      <h3 id="product_8">Product 8</h3>
-      <p>$40.99</p>
-      <button class="buy-button">Buy Now</button>
-    </div>
-    <div class="product">
-      <img src="{{ url_for('static', filename='macbookair13m2.jpeg') }}" />
-      <h3 id="product_9">Product 9</h3>
-      <p>$45.99</p>
-      <button class="buy-button">Buy Now</button>
-    </div>
+      {% else %}
+      <!-- Red button for sold-out product, disabled -->
+      <button class="buy-button sold-out" disabled>Sold Out</button>
+      {% endif %}
   </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No products available at the moment.</p>
+{% endif %}
 {% endblock %}

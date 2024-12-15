@@ -91,12 +91,6 @@ def insert_products(token_dict, name, price, initialstock):
     response = requests.post(url, headers=headers, data=payload)
     print(response.text)
 
-def add_stock(token_dict):
-    pass
-
-def deduct_stock(token_dick):
-    pass
-
 def get_next_reference(token_dict):
     url = f"https://api.moloni.pt/v1/products/getNextReference/?access_token={token_dict["access_token"]}"
     payload = {
@@ -113,6 +107,23 @@ def get_next_customer(token_dict):
         "company_id": COMPANY_ID
     }
     headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded'
     }
     return requests.post(url, headers=headers, data=payload).json()
+
+def get_all_products(token_dict):
+    url = f"https://api.moloni.pt/v1/products/getAll/?access_token={token_dict["access_token"]}"
+    payload = {
+        "company_id": COMPANY_ID,
+        "category_id": CATEGORY_ID,
+    }
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    return requests.post(url, headers=headers, data=payload).json()
+
+def add_stock(token_dict):
+    pass
+
+def deduct_stock(token_dick):
+    pass
