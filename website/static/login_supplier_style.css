@@ -1,0 +1,21 @@
+.form-group {
+    max-width: 65%;
+    padding-left: 400px;
+    padding-top: 10px;
+  }
+  
+  .form-control {
+    margin-left: 0px;
+  }
+  
+  .title_login_supplier {
+    padding-top: 40px;
+  }
+  
+  .btn-primary {
+    height: 50px;
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 15px;
+    margin-left: 400px;
+    width: 320px;
+  }

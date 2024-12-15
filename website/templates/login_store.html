@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %}Login{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <link
+          rel="stylesheet"
+          href="{{url_for('static', filename='login_store_style.css')}}"
+        />
+    <h3 class="title_login_store" align="center">Employee</h3>
+    <div class="form-group">
+        <label for="secret_key">Store's Secret Key</label>
+        <input 
+            type="password" 
+            class="form-control" 
+            id="secret_key"
+            name="secret_key"
+            placeholder="Enter your store's secret key"/>
+    </div>
+    <br />
+    <button type="submit" class="btn-primary">Login</button>
+</form>
+{% endblock %}

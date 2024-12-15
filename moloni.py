@@ -58,3 +58,16 @@ def get_customer_by_email(token_dict, email):
     }
     response = requests.post(url, headers=headers, data=payload)
     return response
+
+def get_customer_by_nif(token_dict, nif):
+    url = f"https://api.moloni.pt/v1/customers/getByVat/?access_token={token_dict["access_token"]}"
+    payload = {
+        "company_id": COMPANY_ID,
+        "vat": nif
+    }
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+    }
+    response = requests.post(url, headers=headers, data=payload)
+    return response
+

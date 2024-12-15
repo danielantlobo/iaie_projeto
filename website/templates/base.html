@@ -14,11 +14,19 @@
             href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
             crossorigin="anonymous"
         />
+        <link
+          rel="stylesheet"
+          href="{{url_for('static', filename='register_style.css')}}"
+        />
+        <link
+          rel="stylesheet"
+          href="{{url_for('static', filename='nav_bar_style.css')}}"
+        />
 
         <title>{% block title %}Home{% endblock %}</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary custom-navbar">
             <button
               class="navbar-toggler"
               type="button"
@@ -29,12 +37,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbar">
               <div class="navbar-nav">
-                <a class="nav-item nav-link" id="home" href="/">Home</a>
-                <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-                <a class="nav-item nav-link" id="login" href="/login">Login</a>
-                <a class="nav-item nav-link" id="signUp" href="/register">Register</a>
+                  <a class="nav-item nav-link" id="home" href="/supplier/login">Supplier</a>
+                  <a class="nav-item nav-link" id="home" href="/store/login">Employee</a>
               </div>
-            </div>
+              <div class="navbar-nav ml-auto">
+                  <a class="nav-item nav-link" id="login" href="/login">Login</a>
+                  <a class="nav-item nav-link" id="signUp" href="/register">Register</a>
+              </div>
+          </div>
         </nav>
 
         {% with messages = get_flashed_messages(with_categories=true) %} {% if

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 import requests
 import threading
 import time
+import json
 
 USERNAME = "a104161@alunos.uminho.pt"
 DEV_ID = "251975622_TESTES_API_UM"
@@ -45,14 +46,22 @@ def get_all_customers(token_dict):
     print(response.text)
 
 def get_customer_count(token_dict):
-    url = f"https://api.moloni.pt/v1/customers/count/?access_token={token_dict["access_token"]}"
+    url = f"https://api.moloni.pt/v1/customers/count/?access_token={token_dict['access_token']}&json=true"
+    
+    # Body content
     payload = {
         "company_id": COMPANY_ID
     }
+    
+    # Headers
     headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
     }
-    return requests.post(url, headers=headers, data=payload)
+    
+    # GET request with body
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
+    
+    return response
 
 
 def insert_customer(token_dict):
@@ -106,7 +115,7 @@ if __name__ == '__main__':
     token_dict = get_token()
     # Criar uma thread para ir dando update à acess token antes dela expirar
     thread = threading.Thread(target=get_token, args=(token_dict,))
-    insert_customer(token_dict)
+    print(get_customer_count(token_dict))
 
     app.run(host="127.0.0.1", port=5050)
 

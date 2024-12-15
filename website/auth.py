@@ -12,10 +12,9 @@ def login():
         email = request.form.get('email')
         customer = get_customer_by_email(token_dict, email).json()
         if not customer:
-            flash('Email não registado', category="error")
+            flash('Email not registered', category="error")
         else:
             return redirect("/")
-
 
     return render_template("login.html")
 
@@ -36,12 +35,15 @@ def register():
         zip_code = request.form.get('zip_code')
         city = request.form.get('city')
         count = get_customer_count(token_dict).json()
-        customer = get_customer_by_email(token_dict, email).json()
-        if not customer:
-            insert_customer(token_dict, name, email, nif, address, zip_code, city, count)
-            print(count)
-            flash('Conta registada com sucesso', category="success")
+        customeremail = get_customer_by_email(token_dict, email).json()
+        customernif = get_customer_by_nif(token_dict, nif).json()
+        if not customeremail:
+            if not customernif:
+                insert_customer(token_dict, name, email, nif, address, zip_code, city, count)
+                flash('Accounted registered successfully', category="success")
+            else:
+                flash('NIF already registered', category="error")
         else:
-            flash('Esse email já está registado', category="error")
+            flash('Email already registered', category="error")
 
     return render_template("register.html")

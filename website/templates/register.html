@@ -2,7 +2,11 @@
 
 {% block content %}
 <form method="POST">
-    <h3 align="center">Register</h3>
+    <link
+          rel="stylesheet"
+          href="{{url_for('static', filename='register_style.css')}}"
+        />
+    <h3 class="title_register" align="center">Register</h3>
     <div class="form-group">
         <label for="name">Full Name</label>
         <input 
@@ -64,6 +68,6 @@
             required/>
     </div>
     <br />
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn-primary">Submit</button>
 </form>
 {% endblock %}
