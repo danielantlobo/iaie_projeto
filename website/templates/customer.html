@@ -12,21 +12,22 @@
 <div class="product-grid-container">
   {% for product in products %}
   <div class="product">
-      <!-- Hardcoded image source -->
       <img src="{{ url_for('static', filename='macbookair13m2.jpeg') }}" alt="{{ product.name }}" />
       <h3>{{ product.name }}</h3>
       <p>€{{ product.price }}</p>
       {% if product.quantity > 0 %}
       <!-- Blue button for available product -->
-      <button class="buy-button">Buy Now</button>
+      <form method="POST">
+        <input type="hidden" name="product_name" value="{{ product.name }}" />
+        <input type="hidden" name="product_price" value="{{ product.price }}" />
+        <button class="buy-button" type="submit">Buy Now</button>
+      </form>
       {% else %}
-      <!-- Red button for sold-out product, disabled -->
+      <!-- Red button for sold-out product -->
       <button class="buy-button sold-out" disabled>Sold Out</button>
       {% endif %}
   </div>
   {% endfor %}
 </div>
-{% else %}
-<p>No products available at the moment.</p>
 {% endif %}
 {% endblock %}

@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect
 import requests
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
 
 USERNAME = "a104161@alunos.uminho.pt"
 DEV_ID = "251975622_TESTES_API_UM"
@@ -7,6 +10,11 @@ DEV_PASSWORD = "RLTF.hFra87d3Un"
 CLIENT_SECRET = "117367f336141e5908b20ac59cae8172e735af41"
 COMPANY_ID = 323135
 CATEGORY_ID = 8555101
+
+def get_date_time():
+    current_datetime = datetime.now()
+    return current_datetime.strftime('%Y-%m-%d %H:%M:%S')
+
 
 def get_customer_count(token_dict):
     url = f"https://api.moloni.pt/v1/customers/count/?access_token={token_dict["access_token"]}"
@@ -89,7 +97,6 @@ def insert_products(token_dict, name, price, initialstock):
         'Content-Type': 'application/x-www-form-urlencoded',
     }
     response = requests.post(url, headers=headers, data=payload)
-    print(response.text)
 
 def get_next_reference(token_dict):
     url = f"https://api.moloni.pt/v1/products/getNextReference/?access_token={token_dict["access_token"]}"
@@ -122,8 +129,80 @@ def get_all_products(token_dict):
     }
     return requests.post(url, headers=headers, data=payload).json()
 
-def add_stock(token_dict):
-    pass
+def stock_movement(token_dict, product_id, quantity):
+    url = f"https://api.moloni.pt/v1/productStocks/insert/?access_token={token_dict["access_token"]}"
+    payload = {
+        "company_id": COMPANY_ID,
+        "product_id": product_id,
+        "movement_data": get_date_time(),
+        "qty": quantity
+    }
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    return requests.post(url, headers=headers, data=payload).json()
 
-def deduct_stock(token_dick):
-    pass
+def get_prod_by_name(token_dict, product_name):
+    url = f"https://api.moloni.pt/v1/products/getByName/?access_token={token_dict["access_token"]}"
+    payload = {
+        "company_id": COMPANY_ID,
+        "name": product_name,
+    }
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    return requests.post(url, headers=headers, data=payload).json()
+
+
+
+def generate_document(token_dict, product, customer_id): #simplified
+    url = f"https://api.moloni.pt/v1/internalDocuments/insert/?access_token={token_dict["access_token"]}&json=true"
+    current_date = datetime.now()
+    expiration_date = current_date + relativedelta(months=1)
+    current_date = current_date.strftime("%Y-%m-%d")
+    expiration_date = expiration_date.strftime("%Y-%m-%d")
+    payload = {
+        "company_id": COMPANY_ID,
+        "date": current_date,
+        "expiration_date": expiration_date,
+        "document_set_id": 762961,
+        "customer_id": customer_id,
+        "status": 1,
+        "products": [
+                {
+                    "product_id": product.get("product_id"),
+                    "name": product.get("name"),
+                    "qty": 1,
+                    "price": product.get("price"),
+                    "exemption_reason": "M01"
+                }
+            ]
+        }
+    # Headers to specify the content type as JSON
+    headers = {
+        'Content-Type': 'application/json'
+    }
+
+    return requests.post(url, json=payload, headers=headers).json()
+    
+def get_doc(token_dict, document_id):
+    url = f"https://api.moloni.pt/v1/documents/getOne/?access_token={token_dict["access_token"]}"
+    payload = {
+        "company_id": COMPANY_ID,
+        "document_id": document_id
+    }
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    return requests.post(url, headers=headers, data=payload).json()
+
+def get_pdf_link(token_dict, document_id):
+    url = f"https://api.moloni.pt/v1/documents/getPDFLink/?access_token={token_dict["access_token"]}"
+    payload = {
+        "company_id": COMPANY_ID,
+        "document_id": document_id
+    }
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    return requests.post(url, headers=headers, data=payload).json()

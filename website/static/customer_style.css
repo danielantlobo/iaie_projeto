@@ -78,3 +78,28 @@
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
+
+/* Flash message container */
+.flash-container {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for success messages */
+.flash.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Style for the hyperlink inside flash messages */
+.pdf-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.pdf-link:hover {
+  text-decoration: underline;
+}
