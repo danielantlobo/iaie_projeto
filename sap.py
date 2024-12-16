@@ -9,10 +9,10 @@ def get_token_sap():
 
     payload = {}
     headers = {
-    'sap-client': '317',
-    'X-CSRF-Token': 'fetch',
-    'Authorization': AUTH,
-    'Cookie': 'SAP_SESSIONID_S53_317=YurelUAf-Ebp_pJEm18zUvenmIW7rxHvnuX6kkZ-SyA%3d; sap-usercontext=sap-client=317'
+        'sap-client': '317',
+        'X-CSRF-Token': 'fetch',
+        'Authorization': AUTH,
+        'Cookie': 'SAP_SESSIONID_S53_317=xHeXOJjLORbkUlLQWjyfsf1c1wG7yxHvnuX6kkZ-SyA%3d; sap-usercontext=sap-client=317'
     }
 
     response = requests.request("GET", url, headers=headers, data=payload)
@@ -28,16 +28,17 @@ def add_product(name, quantity, price):
         "BaseUnit": "EA",
         "ManufacturerNumber": quantity,
         "MaterialVolume": price
-        })
+    })
     headers = {
         'sap-client': '317',
         'X-CSRF-Token': token,
         'Authorization': AUTH,
         'Content-Type': 'application/json',
-        'Cookie': 'SAP_SESSIONID_S53_317=YurelUAf-Ebp_pJEm18zUvenmIW7rxHvnuX6kkZ-SyA%3d; sap-usercontext=sap-client=317'
+        'Cookie': 'SAP_SESSIONID_S53_317=xHeXOJjLORbkUlLQWjyfsf1c1wG7yxHvnuX6kkZ-SyA%3d; sap-usercontext=sap-client=317'
     }
 
     return requests.request("POST", url, headers=headers, data=payload)
+
 
 def get_products():
     url = "https://s53.gb.ucc.cit.tum.de/sap/opu/odata/sap/MD_C_PRODUCT_MAINTAIN_SRV/C_Product?$format=json&$filter=CreatedByUser eq 'LEARN-034'"
@@ -49,3 +50,21 @@ def get_products():
     }
 
     return requests.request("GET", url, headers=headers, data=payload).json()
+
+def insert_customer_sap(name):
+    url = "https://s53.gb.ucc.cit.tum.de/sap/opu/odata/sap/MD_BUSINESSPARTNER_SRV/C_BusinessPartner"
+
+    payload = json.dumps({
+        "BusinessPartnerCategory": "1",
+        "FullName": name,
+        "BusinessPartnerIsBlocked": False
+    })
+    headers = {
+        'X-CSRF-Token': 'Qr5Gb0BtdElViRutlo6Cqw==',
+        'sap-client': '317',
+        'Content-Type': 'application/json',
+        'Authorization': AUTH,
+        'Cookie': 'SAP_SESSIONID_S53_317=xHeXOJjLORbkUlLQWjyfsf1c1wG7yxHvnuX6kkZ-SyA%3d; sap-usercontext=sap-client=317'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)

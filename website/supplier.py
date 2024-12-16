@@ -18,16 +18,18 @@ def login():
 
 @supplier.route('/home', methods=['GET','POST'])
 def menu():
+    products = get_products().get("d").get("results")
+    products_relevant = []
 
     if request.method == 'POST':
         product_name = request.form.get('name')
         product_quantity = request.form.get('quantity')
         price = request.form.get('price')
+        
         add_product(product_name, product_quantity, price)
-        token = get_token_sap()
-    
-    products = get_products().get("d").get("results")
-    products_relevant = []
+        flash(f'You added {product_quantity} new {product_name}', category="success")
+        return redirect('/supplier/home')
+
     for product in products:
         products_relevant.append({"name": product.get("ProductDescription"), "quantity": product.get("ManufacturerNumber"), "price": product.get("MaterialVolume")})
 

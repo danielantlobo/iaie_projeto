@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, flash, url_for
 import json
 from moloni import *
+from sap import *
 
 auth = Blueprint('auth', __name__)
 
@@ -40,6 +41,7 @@ def register():
         if not customeremail:
             if not customernif:
                 insert_customer(token_dict, name, email, nif, address, zip_code, city, next_number)
+                insert_customer_sap(name)
                 flash('Accounted registered successfully', category="success")
             else:
                 flash('NIF already registered', category="error")
