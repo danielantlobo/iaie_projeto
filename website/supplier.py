@@ -18,6 +18,17 @@ def login():
 
 @supplier.route('/home', methods=['GET','POST'])
 def menu():
+
     if request.method == 'POST':
-        pass
-    return render_template("supplier.html")
+        product_name = request.form.get('name')
+        product_quantity = request.form.get('quantity')
+        price = request.form.get('price')
+        add_product(product_name, product_quantity, price)
+        token = get_token_sap()
+    
+    products = get_products().get("d").get("results")
+    products_relevant = []
+    for product in products:
+        products_relevant.append({"name": product.get("ProductDescription"), "quantity": product.get("ManufacturerNumber"), "price": product.get("MaterialVolume")})
+
+    return render_template("supplier.html", products=products_relevant)
