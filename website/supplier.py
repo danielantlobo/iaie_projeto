@@ -20,6 +20,8 @@ def login():
 def menu():
     products = get_products().get("d").get("results")
     products_relevant = []
+    token = get_token_sap()
+    print(token)
 
     if request.method == 'POST':
         product_name = request.form.get('name')

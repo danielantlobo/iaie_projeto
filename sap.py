@@ -12,15 +12,15 @@ def get_token_sap():
         'sap-client': '317',
         'X-CSRF-Token': 'fetch',
         'Authorization': AUTH,
-        'Cookie': 'SAP_SESSIONID_S53_317=xHeXOJjLORbkUlLQWjyfsf1c1wG7yxHvnuX6kkZ-SyA%3d; sap-usercontext=sap-client=317'
     }
 
-    response = requests.request("GET", url, headers=headers, data=payload)
-    return response.headers.get('x-csrf-token')
+    return requests.request("GET", url, headers=headers, data=payload).headers
 
 def add_product(name, quantity, price):
-    token = get_token_sap()
     url = "https://s53.gb.ucc.cit.tum.de/sap/opu/odata/sap/MD_C_PRODUCT_MAINTAIN_SRV/C_Product"
+
+    headers = get_token_sap()
+    cookies = get_cookies_from_headers(headers)
 
     payload = json.dumps({
         "ProductType": "FERT",
@@ -31,10 +31,10 @@ def add_product(name, quantity, price):
     })
     headers = {
         'sap-client': '317',
-        'X-CSRF-Token': token,
+        'X-CSRF-Token': headers.get("x-csrf-token"),
         'Authorization': AUTH,
         'Content-Type': 'application/json',
-        'Cookie': 'SAP_SESSIONID_S53_317=xHeXOJjLORbkUlLQWjyfsf1c1wG7yxHvnuX6kkZ-SyA%3d; sap-usercontext=sap-client=317'
+        'Cookie': cookies
     }
 
     return requests.request("POST", url, headers=headers, data=payload)
@@ -52,6 +52,10 @@ def get_products():
     return requests.request("GET", url, headers=headers, data=payload).json()
 
 def insert_customer_sap(name):
+
+    headers = get_token_sap()
+    cookies = get_cookies_from_headers(headers)
+
     url = "https://s53.gb.ucc.cit.tum.de/sap/opu/odata/sap/MD_BUSINESSPARTNER_SRV/C_BusinessPartner"
 
     payload = json.dumps({
@@ -60,11 +64,30 @@ def insert_customer_sap(name):
         "BusinessPartnerIsBlocked": False
     })
     headers = {
-        'X-CSRF-Token': 'Qr5Gb0BtdElViRutlo6Cqw==',
+        'X-CSRF-Token': headers.get("x-csrf-token"),
+        'Cookie': cookies,
         'sap-client': '317',
         'Content-Type': 'application/json',
-        'Authorization': AUTH,
-        'Cookie': 'SAP_SESSIONID_S53_317=xHeXOJjLORbkUlLQWjyfsf1c1wG7yxHvnuX6kkZ-SyA%3d; sap-usercontext=sap-client=317'
+        'Authorization': AUTH
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
+
+
+def get_cookies_from_headers(headers):
+    # Get the 'set-cookie' header from the response headers
+    set_cookie = headers.get('set-cookie', '')
+    
+    # Split the cookie string into individual cookies
+    cookies = set_cookie.split(', ')
+    
+    # Extract relevant cookies and format them
+    cookie_dict = {}
+    for cookie in cookies:
+        if '=' in cookie:
+            key, value = cookie.split(';')[0].split('=', 1)
+            cookie_dict[key] = value
+    
+    # Reformat the cookies into the desired string
+    formatted_cookies = '; '.join([f"{key}={value}" for key, value in cookie_dict.items()])
+    return formatted_cookies
